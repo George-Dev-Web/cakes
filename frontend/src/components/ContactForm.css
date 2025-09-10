@@ -1,0 +1,42 @@
+/* frontend/src/components/ContactForm.css */
+.contact-section {
+  background-color: var(--secondary-color);
+  border-radius: var(--border-radius);
+  padding: 40px;
+  margin: 40px 0;
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius);
+  font-family: inherit;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+@media screen and (max-width: 768px) {
+  .contact-section {
+    padding: 20px;
+  }
+}
