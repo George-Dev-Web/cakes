@@ -43,9 +43,20 @@ export const registerUser = async (userData) => {
   return response.data;
 };
 
+// export const getCurrentUser = async () => {
+//   const response = await api.get("/auth/me");
+//   return response.data;
+// };
+
 export const getCurrentUser = async () => {
-  const response = await api.get("/auth/me");
-  return response.data;
+  const token = localStorage.getItem("token");
+  const res = await fetch("/api/auth/me", {
+    headers: {
+      Authorization: `Bearer ${token}`, // ✅ sends token
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch user");
+  return res.json();
 };
 
 // Cakes API calls
@@ -55,14 +66,59 @@ export const fetchCakes = async () => {
 };
 
 // Orders API calls
+//
+// frontend/src/utils/api.js
+// Update the submitOrder function
+
 export const submitOrder = async (orderData) => {
-  const response = await api.post("/orders", orderData);
-  return response.data;
+  try {
+    // Ensure delivery_date is properly formatted
+    const formattedData = {
+      ...orderData,
+      delivery_date: orderData.deliveryDate || orderData.delivery_date,
+    };
+
+    const response = await api.post("/orders", formattedData);
+    return response.data;
+  } catch (error) {
+    console.error("Order submission error:", error.response?.data);
+    throw error;
+  }
 };
 
+// export const fetchUserOrders = async () => {
+//   try {
+//     const response = await api.get("/orders/my-orders");
+//     return response.data;
+//   } catch (error) {
+//     console.error("Error fetching user orders:", error.response?.data);
+//     throw error;
+//   }
+// };
+
+// export const fetchUserOrders = async () => {
+//   const response = await api.get("/orders/my-orders");
+//   return response.data;
+// };
+
 export const fetchUserOrders = async () => {
-  const response = await api.get("/orders/my-orders");
-  return response.data;
+  try {
+    const response = await api.get("/orders/my-orders");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user orders:", error.response?.data);
+
+    // Handle specific error cases
+    if (error.response?.status === 422) {
+      throw new Error("Unable to fetch orders. Please try logging in again.");
+    } else if (error.response?.status === 401) {
+      // Token might be invalid, clear it
+      localStorage.removeItem("token");
+      throw new Error("Session expired. Please log in again.");
+    } else {
+      throw new Error("Failed to load orders. Please try again later.");
+    }
+  }
 };
 
 // Contact API call

@@ -12,6 +12,24 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     getCurrentUser()
+  //       .then((user) => {
+  //         setCurrentUser(user);
+  //       })
+  //       .catch(() => {
+  //         localStorage.removeItem("token");
+  //       })
+  //       .finally(() => {
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     setLoading(false);
+  //   }
+  // }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -19,7 +37,9 @@ export const AuthProvider = ({ children }) => {
         .then((user) => {
           setCurrentUser(user);
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error("Auth error:", error);
+          // Clear invalid token
           localStorage.removeItem("token");
         })
         .finally(() => {
@@ -30,11 +50,14 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
+  //
+  // In your AuthContext.jsx, update the login and register functions:
   const login = async (email, password) => {
     const response = await loginUser(email, password);
     if (response.token) {
       localStorage.setItem("token", response.token);
       setCurrentUser(response.user);
+      // No automatic navigation here - let the component handle it
       return { success: true };
     }
     return { success: false, message: response.message };
@@ -45,6 +68,7 @@ export const AuthProvider = ({ children }) => {
     if (response.token) {
       localStorage.setItem("token", response.token);
       setCurrentUser(response.user);
+      // No automatic navigation here - let the component handle it
       return { success: true };
     }
     return { success: false, message: response.message };

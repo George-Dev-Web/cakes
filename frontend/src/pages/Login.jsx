@@ -1,10 +1,12 @@
 // frontend/src/pages/Login.jsx
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "./Auth.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,7 +15,6 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -29,8 +30,12 @@ const Login = () => {
 
     try {
       const result = await login(formData.email, formData.password);
+      // if (result.success) {
+      //   navigate("/dashboard");
+
       if (result.success) {
-        navigate("/dashboard");
+        alert("Success! You are now logged in.");
+        navigate("/dashboard"); // ✅ stays in React, no reload
       } else {
         setError(result.message);
       }

@@ -58,3 +58,20 @@
     padding: 20px;
   }
 }
+
+/* frontend/src/pages/Order.css */
+/* Add these styles to the existing Order.css */
+
+.form-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 25px;
+}
+
+.form-section h3 {
+  margin-bottom: 15px;
+  color: var(--accent-color);
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}

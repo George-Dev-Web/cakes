@@ -85,29 +85,27 @@ def create_sample_data():
         
         # Create sample users
         print("Creating sample users...")
+        # Update the user creation part of the seed.py script
+# Add these additional fields to the sample users
+
         users = [
             User(
                 name="Emma Johnson",
-                email="emma@example.com"
+                email="emma@example.com",
+                phone="555-123-4567",
+                address="123 Main St, Anytown, CA 12345",
+                preferences='{"favoriteCakeType": "chocolate", "dietaryRestrictions": "nut-free", "specialOccasions": "Birthday"}'
             ),
             User(
                 name="James Wilson",
-                email="james@example.com"
+                email="james@example.com",
+                phone="555-234-5678",
+                address="456 Oak Ave, Somewhere, NY 67890",
+                preferences='{"favoriteCakeType": "red-velvet", "dietaryRestrictions": "dairy-free", "specialOccasions": "Anniversary"}'
             ),
-            User(
-                name="Sophia Martinez",
-                email="sophia@example.com"
-            ),
-            User(
-                name="Michael Brown",
-                email="michael@example.com"
-            ),
-            User(
-                name="Admin User",
-                email="admin@velveltbloom.com"
-            )
+            
         ]
-        
+                
         # Set passwords for all users
         for user in users:
             user.set_password("password123")  # Simple password for testing
