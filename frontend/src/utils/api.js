@@ -121,6 +121,26 @@ export const fetchUserOrders = async () => {
   }
 };
 
+export const cancelOrder = async (orderId) => {
+  try {
+    const response = await api.delete(`/orders/${orderId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error cancelling order:", error.response?.data);
+    throw error;
+  }
+};
+
+export const updateUserProfile = async (profileData) => {
+  try {
+    const response = await api.put("/auth/profile", profileData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating profile:", error.response?.data);
+    throw error;
+  }
+};
+
 // Contact API call
 export const submitContactForm = async (formData) => {
   const response = await api.post("/contact", formData);

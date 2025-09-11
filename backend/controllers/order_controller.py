@@ -176,3 +176,30 @@ def get_order(id):
     except Exception as e:
         print(f"Error fetching order: {str(e)}")
         return jsonify({'message': 'Internal server error'}), 500
+    
+    # backend/controllers/order_controller.py - Add this endpoint
+@order_bp.route('/orders/<int:id>', methods=['DELETE'])
+@jwt_required()
+def cancel_order(id):
+    try:
+        order = Order.query.get_or_404(id)
+        user_id = get_jwt_identity()
+        
+        # Check if user owns this order
+        if order.user_id != int(user_id):
+            return jsonify({'message': 'Access denied'}), 403
+        
+        # Only allow cancelling pending or confirmed orders
+        if order.status not in ['pending', 'confirmed']:
+            return jsonify({'message': 'Cannot cancel order in current status'}), 400
+        
+        # Update order status to cancelled
+        order.status = 'cancelled'
+        db.session.commit()
+        
+        return jsonify({'message': 'Order cancelled successfully'})
+        
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error cancelling order: {str(e)}")
+        return jsonify({'message': 'Internal server error'}), 500

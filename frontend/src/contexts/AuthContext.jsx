@@ -79,11 +79,19 @@ export const AuthProvider = ({ children }) => {
     setCurrentUser(null);
   };
 
+  const updateUser = (userData) => {
+    setCurrentUser((prev) => ({
+      ...prev,
+      ...userData,
+    }));
+  };
+
   const value = {
     currentUser,
     login,
     register,
     logout,
+    updateUser,
   };
 
   return (
