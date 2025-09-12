@@ -1,9 +1,9 @@
 // frontend/src/pages/Login.jsx
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify"; // 👈 import toast
 import "./Auth.css";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -11,7 +11,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { login } = useAuth();
@@ -25,22 +24,19 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
     try {
       const result = await login(formData.email, formData.password);
-      // if (result.success) {
-      //   navigate("/dashboard");
 
       if (result.success) {
-        alert("Success! You are now logged in.");
-        navigate("/dashboard"); // ✅ stays in React, no reload
+        toast.success("Welcome back! 🎉"); // 👈 replace alert
+        navigate("/dashboard");
       } else {
-        setError(result.message);
+        toast.error(result.message || "Invalid email or password ❌");
       }
     } catch {
-      setError("Failed to log in. Please try again.");
+      toast.error("Failed to log in. Please try again later ❌");
     } finally {
       setLoading(false);
     }
@@ -50,7 +46,6 @@ const Login = () => {
     <div className="auth-container">
       <div className="auth-form">
         <h2>Login to Your Account</h2>
-        {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -79,7 +74,7 @@ const Login = () => {
           </button>
         </form>
         <p className="auth-link">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Don’t have an account? <Link to="/register">Register here</Link>
         </p>
       </div>
     </div>

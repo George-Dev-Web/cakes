@@ -1,0 +1,26 @@
+.message-bar {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  z-index: 1000;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease-in-out;
+}
+
+.message-bar.success {
+  background-color: #28a745;
+}
+
+.message-bar.error {
+  background-color: #dc3545;
+}
+
+.message-bar.info {
+  background-color: #007bff;
+}
