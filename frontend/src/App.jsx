@@ -43,6 +43,7 @@
 // frontend/src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext"; // Add this import
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Order from "./pages/Order";
@@ -56,39 +57,43 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
+    <ThemeProvider>
+      {" "}
+      {/* Wrap everything with ThemeProvider */}
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
 
-          {/* 🔥 Add this once, globally */}
-          <ToastContainer
-            position="top-right"
-            autoClose={3000} // 3s before disappearing
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            pauseOnHover
-            draggable
-            theme="colored" // options: light, dark, colored
-          />
-        </div>
-      </Router>
-    </AuthProvider>
+            {/* 🔥 Add this once, globally */}
+            <ToastContainer
+              position="top-right"
+              autoClose={3000} // 3s before disappearing
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              pauseOnHover
+              draggable
+              theme="colored" // options: light, dark, colored
+            />
+          </div>
+        </Router>
+      </AuthProvider>
+    </ThemeProvider> // Close ThemeProvider
   );
 }
 

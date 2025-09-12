@@ -541,3 +541,150 @@
     margin-bottom: 8px;
   }
 }
+
+/* frontend/src/pages/Dashboard.css */
+/* Add these dark mode styles */
+
+.dashboard-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.card-header {
+  border-bottom-color: var(--card-border);
+}
+
+.info-item label,
+.preference-item label {
+  color: var(--text-secondary);
+}
+
+.info-item span,
+.preference-value {
+  color: var(--text-color);
+}
+
+.quick-actions .action-btn {
+  border: 1px solid var(--card-border);
+}
+
+.quick-actions .action-btn.secondary {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.quick-actions .action-btn.secondary:hover {
+  background-color: var(--secondary-color);
+}
+
+.orders-summary {
+  background-color: var(--secondary-color);
+}
+
+.summary-number {
+  color: var(--accent-color);
+}
+
+.summary-label {
+  color: var(--text-secondary);
+}
+
+.order-item {
+  background-color: var(--secondary-color);
+  border-left-color: var(--primary-color);
+}
+
+.order-quantity,
+.order-price {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  color: var(--text-color);
+}
+
+/* Success and error messages */
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.dashboard-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+/* Edit forms in dark mode */
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--text-color);
+}
+
+.edit-form input::placeholder,
+.edit-form textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.checkbox-group label {
+  color: var(--text-color);
+}
+
+/* Mobile enhancements */
+@media screen and (max-width: 768px) {
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+
+  .dashboard-header p {
+    font-size: 1rem;
+  }
+
+  .orders-summary {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .summary-number {
+    font-size: 1.5rem;
+  }
+
+  .summary-label {
+    font-size: 0.8rem;
+  }
+
+  .order-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .order-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .dashboard-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .orders-summary {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

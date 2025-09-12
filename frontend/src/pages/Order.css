@@ -1,77 +1,158 @@
-/* frontend/src/pages/Order.css */
+/* Order.css - Dark Mode Compatible */
+
 .order-page {
-  padding: 60px 0;
+  min-height: 100vh;
+  padding: 2rem 0;
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #333333);
+  transition: background-color 0.3s, color 0.3s;
 }
 
-.order-form {
+.order-page .container {
   max-width: 800px;
   margin: 0 auto;
-  background-color: var(--card-bg);
-  padding: 40px;
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  padding: 0 1rem;
+}
+
+.order-page h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--heading-color, #2c3e50);
+  font-size: 2.5rem;
+}
+
+.order-page h3 {
+  color: var(--heading-color, #2c3e50);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color, #e1e8ed);
+  padding-bottom: 0.5rem;
+}
+
+/* Form Styles */
+.order-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-section {
+  background-color: var(--section-bg, #f8f9fa);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color, #e1e8ed);
 }
 
 .form-row {
   display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.form-row .form-group {
-  flex: 1;
-  margin-bottom: 0;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-color, #333333);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius);
-  font-family: inherit;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color, #ced4da);
+  border-radius: 4px;
+  background-color: var(--input-bg, #ffffff);
+  color: var(--text-color, #333333);
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color, #4a90e2);
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
 }
 
 .form-group textarea {
-  min-height: 100px;
   resize: vertical;
+  min-height: 100px;
 }
 
-@media screen and (max-width: 768px) {
+/* Button Styles */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  align-self: center;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color, #4a90e2);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover, #357abd);
+}
+
+.btn-primary:disabled {
+  background-color: var(--disabled-bg, #b3c7e0);
+  cursor: not-allowed;
+}
+
+/* Error Message */
+.error-message {
+  background-color: var(--error-bg, #f8d7da);
+  color: var(--error-text, #721c24);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid var(--error-border, #f5c6cb);
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --heading-color: #ffffff;
+    --section-bg: #2d2d2d;
+    --border-color: #444;
+    --input-bg: #3d3d3d;
+    --primary-color: #5da2ff;
+    --primary-hover: #4a90e2;
+    --disabled-bg: #2a4b6a;
+    --error-bg: #4a2327;
+    --error-text: #ffa8b1;
+    --error-border: #5c2c30;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .form-row {
     flex-direction: column;
     gap: 0;
   }
 
-  .order-form {
-    padding: 20px;
+  .order-page h1 {
+    font-size: 2rem;
   }
-}
 
-/* frontend/src/pages/Order.css */
-/* Add these styles to the existing Order.css */
-
-.form-section {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: var(--border-radius);
-  margin-bottom: 25px;
-}
-
-.form-section h3 {
-  margin-bottom: 15px;
-  color: var(--accent-color);
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  .form-section {
+    padding: 1rem;
+  }
 }

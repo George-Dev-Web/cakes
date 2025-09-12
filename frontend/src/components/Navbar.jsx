@@ -2,11 +2,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
 import "./Navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
+  const { isDarkMode, toggleTheme } = useTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -21,8 +23,9 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          Velvet Bloom
+          Velvelt Bloom
         </Link>
+
         <div className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
           <Link
             to="/"
@@ -45,6 +48,11 @@ const Navbar = () => {
           >
             Contact
           </a>
+
+          {/* Theme Toggle */}
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {isDarkMode ? "☀️" : "🌙"}
+          </button>
 
           {currentUser ? (
             <>
@@ -78,10 +86,16 @@ const Navbar = () => {
             </>
           )}
         </div>
-        <div className="nav-icon" onClick={toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
+
+        <div className="nav-right">
+          <button className="theme-toggle mobile-only" onClick={toggleTheme}>
+            {isDarkMode ? "☀️" : "🌙"}
+          </button>
+          <div className="nav-icon" onClick={toggleMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
     </nav>

@@ -1,4 +1,4 @@
-/* frontend/src/components/Navbar.css */
+/* frontend/src/components/Navbar.css
 .navbar {
   background-color: var(--card-bg);
   box-shadow: var(--shadow);
@@ -79,5 +79,175 @@
   .nav-link {
     margin: 15px 0;
     display: block;
+  }
+} */
+
+/* frontend/src/components/Navbar.css */
+.navbar {
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.nav-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  transition: var(--transition);
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background-color: var(--secondary-color);
+  transform: scale(1.1);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.mobile-only {
+  display: none;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  margin-left: 0;
+}
+
+.nav-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.nav-icon span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-color);
+  margin: 2px 0;
+  transition: var(--transition);
+  border-radius: 2px;
+}
+
+/* Enhanced mobile styles */
+@media screen and (max-width: 768px) {
+  .nav-container {
+    padding: 12px 15px;
+  }
+
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 60px;
+    flex-direction: column;
+    background-color: var(--card-bg);
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: var(--shadow);
+    padding: 20px 0;
+    gap: 0;
+    z-index: 999;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-link {
+    margin: 12px 0;
+    display: block;
+    padding: 12px;
+    width: 100%;
+  }
+
+  .theme-toggle:not(.mobile-only) {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+  }
+
+  .nav-icon {
+    display: flex;
+  }
+
+  .nav-icon.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .nav-icon.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-icon.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+}
+
+/* Large mobile devices */
+@media screen and (max-width: 480px) {
+  .nav-logo {
+    font-size: 20px;
+  }
+
+  .theme-toggle {
+    font-size: 1.1rem;
+    padding: 6px;
   }
 }
