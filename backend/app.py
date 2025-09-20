@@ -20,8 +20,10 @@ def create_app(config_class=Config):
     from controllers.order_controller import order_bp
     from controllers.auth_controller import auth_bp
     from controllers.contact_controller import contact_bp
+    from controllers.admin_controller import admin_bp
     
     app.register_blueprint(cake_bp, url_prefix='/api')
+    app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(order_bp, url_prefix='/api')
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(contact_bp, url_prefix='/api')

@@ -1,7 +1,7 @@
 // frontend/src/contexts/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 import { loginUser, registerUser, getCurrentUser } from "../utils/api";
-import { toast } from "react-toastify"; // 👈 import toast
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
         .catch((error) => {
           console.error("Auth error:", error);
           localStorage.removeItem("token");
-          toast.error("Session expired. Please log in again."); // 👈 notify on error
+          toast.error("Session expired. Please log in again.");
         })
         .finally(() => {
           setLoading(false);
@@ -38,10 +38,10 @@ export const AuthProvider = ({ children }) => {
     if (response.token) {
       localStorage.setItem("token", response.token);
       setCurrentUser(response.user);
-      toast.success("Login successful! 🎉"); // 👈 notify success
+      toast.success("Login successful! 🎉");
       return { success: true };
     }
-    toast.error(response.message || "Login failed ❌"); // 👈 notify error
+    toast.error(response.message || "Login failed ❌");
     return { success: false, message: response.message };
   };
 
@@ -50,17 +50,17 @@ export const AuthProvider = ({ children }) => {
     if (response.token) {
       localStorage.setItem("token", response.token);
       setCurrentUser(response.user);
-      toast.success("Registration successful! 🎉"); // 👈 notify success
+      toast.success("Registration successful! 🎉");
       return { success: true };
     }
-    toast.error(response.message || "Registration failed ❌"); // 👈 notify error
+    toast.error(response.message || "Registration failed ❌");
     return { success: false, message: response.message };
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     setCurrentUser(null);
-    toast.info("Logged out successfully 👋"); // 👈 notify logout
+    toast.info("Logged out successfully 👋");
   };
 
   const updateUser = (userData) => {
@@ -70,12 +70,18 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
+  // Add admin check helper function
+  const isAdmin = () => {
+    return currentUser && currentUser.is_admin === true;
+  };
+
   const value = {
     currentUser,
     login,
     register,
     logout,
     updateUser,
+    isAdmin, // Add isAdmin function to context value
   };
 
   return (

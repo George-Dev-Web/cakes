@@ -43,14 +43,16 @@
 // frontend/src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-import { ThemeProvider } from "./contexts/ThemeContext"; // Add this import
+import { ThemeProvider } from "./contexts/ThemeContext";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Order from "./pages/Order";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard"; // Import AdminDashboard
 import ProtectedRoute from "./components/ProtectedRoute";
+import AdminProtectedRoute from "./components/AdminProtectedRoute"; // Import AdminProtectedRoute
 import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -58,8 +60,6 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <ThemeProvider>
-      {" "}
-      {/* Wrap everything with ThemeProvider */}
       <AuthProvider>
         <Router>
           <div className="App">
@@ -77,23 +77,32 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              {/* Add Admin Dashboard Route */}
+              <Route
+                path="/admin"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminDashboard />
+                  </AdminProtectedRoute>
+                }
+              />
             </Routes>
 
-            {/* 🔥 Add this once, globally */}
+            {/* Toast Container */}
             <ToastContainer
               position="top-right"
-              autoClose={3000} // 3s before disappearing
+              autoClose={3000}
               hideProgressBar={false}
               newestOnTop={false}
               closeOnClick
               pauseOnHover
               draggable
-              theme="colored" // options: light, dark, colored
+              theme="colored"
             />
           </div>
         </Router>
       </AuthProvider>
-    </ThemeProvider> // Close ThemeProvider
+    </ThemeProvider>
   );
 }
 

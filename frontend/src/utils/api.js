@@ -43,20 +43,15 @@ export const registerUser = async (userData) => {
   return response.data;
 };
 
-// export const getCurrentUser = async () => {
-//   const response = await api.get("/auth/me");
-//   return response.data;
-// };
-
+// FIXED getCurrentUser function
 export const getCurrentUser = async () => {
-  const token = localStorage.getItem("token");
-  const res = await fetch("/api/auth/me", {
-    headers: {
-      Authorization: `Bearer ${token}`, // ✅ sends token
-    },
-  });
-  if (!res.ok) throw new Error("Failed to fetch user");
-  return res.json();
+  try {
+    const response = await api.get("/auth/me");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching current user:", error.response?.data);
+    throw error;
+  }
 };
 
 // Cakes API calls
@@ -66,10 +61,6 @@ export const fetchCakes = async () => {
 };
 
 // Orders API calls
-//
-// frontend/src/utils/api.js
-// Update the submitOrder function
-
 export const submitOrder = async (orderData) => {
   try {
     // Ensure delivery_date is properly formatted
@@ -85,21 +76,6 @@ export const submitOrder = async (orderData) => {
     throw error;
   }
 };
-
-// export const fetchUserOrders = async () => {
-//   try {
-//     const response = await api.get("/orders/my-orders");
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching user orders:", error.response?.data);
-//     throw error;
-//   }
-// };
-
-// export const fetchUserOrders = async () => {
-//   const response = await api.get("/orders/my-orders");
-//   return response.data;
-// };
 
 export const fetchUserOrders = async () => {
   try {
@@ -145,6 +121,89 @@ export const updateUserProfile = async (profileData) => {
 export const submitContactForm = async (formData) => {
   const response = await api.post("/contact", formData);
   return response.data;
+};
+
+// Admin API calls - Added without changing existing logic
+export const fetchAdminStats = async () => {
+  try {
+    const response = await api.get("/admin/dashboard/stats");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching admin stats:", error.response?.data);
+    throw error;
+  }
+};
+
+export const fetchAdminOrders = async (params = {}) => {
+  try {
+    const response = await api.get("/admin/orders", { params });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching admin orders:", error.response?.data);
+    throw error;
+  }
+};
+
+export const updateOrderStatus = async (orderId, status) => {
+  try {
+    const response = await api.put(`/admin/orders/${orderId}/status`, {
+      status,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating order status:", error.response?.data);
+    throw error;
+  }
+};
+
+export const fetchAdminCakes = async () => {
+  try {
+    const response = await api.get("/admin/cakes");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching admin cakes:", error.response?.data);
+    throw error;
+  }
+};
+
+export const createCake = async (cakeData) => {
+  try {
+    const response = await api.post("/admin/cakes", cakeData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating cake:", error.response?.data);
+    throw error;
+  }
+};
+
+export const updateCake = async (cakeId, cakeData) => {
+  try {
+    const response = await api.put(`/admin/cakes/${cakeId}`, cakeData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating cake:", error.response?.data);
+    throw error;
+  }
+};
+
+export const deleteCake = async (cakeId) => {
+  try {
+    const response = await api.delete(`/admin/cakes/${cakeId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting cake:", error.response?.data);
+    throw error;
+  }
+};
+
+export const fetchAdminUsers = async (params = {}) => {
+  try {
+    const response = await api.get("/admin/users", { params });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching admin users:", error.response?.data);
+    throw error;
+  }
 };
 
 export default api;
