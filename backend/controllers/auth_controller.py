@@ -19,6 +19,7 @@ class UserSchema(Schema):
     phone = fields.Str()
     address = fields.Str()
     preferences = fields.Method("get_preferences_dict")
+    is_admin = fields.Boolean()  # Add this line to include is_admin field
     created_at = fields.DateTime(dump_only=True)
     
     def get_preferences_dict(self, obj):
