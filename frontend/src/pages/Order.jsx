@@ -20,6 +20,11 @@ const Order = () => {
   const [error, setError] = useState("");
   const { currentUser } = useAuth();
 
+  // Format price as Kenyan Shillings
+  const formatPrice = (price) => {
+    return `KSh ${price.toLocaleString("en-KE")}`;
+  };
+
   useEffect(() => {
     // Pre-fill form with user data if logged in
     if (currentUser) {
@@ -134,7 +139,7 @@ const Order = () => {
                   <option value="">Choose a cake</option>
                   {cakes.map((cake) => (
                     <option key={cake.id} value={cake.id}>
-                      {cake.name} - ${cake.price}
+                      {cake.name} - {formatPrice(cake.price)}
                     </option>
                   ))}
                 </select>

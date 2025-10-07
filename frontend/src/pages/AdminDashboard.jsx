@@ -23,6 +23,11 @@ const AdminDashboard = () => {
   const [error, setError] = useState("");
   const { currentUser } = useAuth();
 
+  // Format price as Kenyan Shillings
+  const formatPrice = (price) => {
+    return `KSh ${price.toLocaleString("en-KE")}`;
+  };
+
   useEffect(() => {
     if (currentUser && currentUser.is_admin) {
       loadData();
@@ -126,14 +131,24 @@ const AdminDashboard = () => {
           {loading && <div className="loading">Loading...</div>}
           {error && <div className="error">{error}</div>}
 
-          {activeTab === "overview" && stats && <OverviewTab stats={stats} />}
+          {activeTab === "overview" && stats && (
+            <OverviewTab stats={stats} formatPrice={formatPrice} />
+          )}
 
           {activeTab === "orders" && (
-            <OrdersTab orders={orders} onStatusUpdate={handleStatusUpdate} />
+            <OrdersTab
+              orders={orders}
+              onStatusUpdate={handleStatusUpdate}
+              formatPrice={formatPrice}
+            />
           )}
 
           {activeTab === "cakes" && (
-            <CakesTab cakes={cakes} onRefresh={loadData} />
+            <CakesTab
+              cakes={cakes}
+              onRefresh={loadData}
+              formatPrice={formatPrice}
+            />
           )}
 
           {activeTab === "users" && <UsersTab users={users} />}
@@ -144,7 +159,7 @@ const AdminDashboard = () => {
 };
 
 // Tab Components
-const OverviewTab = ({ stats }) => (
+const OverviewTab = ({ stats, formatPrice }) => (
   <div className="overview-grid">
     <div className="stat-card">
       <h3>Total Users</h3>
@@ -156,7 +171,7 @@ const OverviewTab = ({ stats }) => (
     </div>
     <div className="stat-card">
       <h3>Total Revenue</h3>
-      <div className="stat-number">${stats.total_revenue.toFixed(2)}</div>
+      <div className="stat-number">{formatPrice(stats.total_revenue)}</div>
     </div>
     <div className="stat-card">
       <h3>Recent Orders (7 days)</h3>
@@ -187,7 +202,7 @@ const OverviewTab = ({ stats }) => (
   </div>
 );
 
-const OrdersTab = ({ orders, onStatusUpdate }) => (
+const OrdersTab = ({ orders, onStatusUpdate, formatPrice }) => (
   <div className="orders-table">
     <h3>All Orders</h3>
     {orders.length === 0 ? (
@@ -216,7 +231,7 @@ const OrdersTab = ({ orders, onStatusUpdate }) => (
               </td>
               <td>{order.cake_name}</td>
               <td>{order.quantity}</td>
-              <td>${order.total_price}</td>
+              <td>{formatPrice(order.total_price)}</td>
               <td>
                 <span className={`status-badge status-${order.status}`}>
                   {order.status}
@@ -256,7 +271,7 @@ const OrdersTab = ({ orders, onStatusUpdate }) => (
   </div>
 );
 
-const CakesTab = ({ cakes, onRefresh }) => {
+const CakesTab = ({ cakes, onRefresh, formatPrice }) => {
   const [isAdding, setIsAdding] = useState(false);
   const [editingCake, setEditingCake] = useState(null);
   const [formData, setFormData] = useState({
@@ -339,7 +354,7 @@ const CakesTab = ({ cakes, onRefresh }) => {
             />
           </div>
           <div className="form-group">
-            <label>Price:</label>
+            <label>Price (KSh):</label>
             <input
               type="number"
               step="0.01"
@@ -374,7 +389,7 @@ const CakesTab = ({ cakes, onRefresh }) => {
             <div className="cake-info">
               <h4>{cake.name}</h4>
               <p>{cake.description}</p>
-              <div className="cake-price">${cake.price}</div>
+              <div className="cake-price">{formatPrice(cake.price)}</div>
               <div className="cake-actions">
                 <button onClick={() => handleEdit(cake)}>Edit</button>
                 <button onClick={() => handleDelete(cake.id)}>Delete</button>

@@ -17,6 +17,11 @@ const Dashboard = () => {
   const { currentUser, updateUser } = useAuth();
   const navigate = useNavigate();
 
+  // Format price as Kenyan Shillings
+  const formatPrice = (price) => {
+    return `KSh ${price.toLocaleString("en-KE")}`;
+  };
+
   useEffect(() => {
     const getUserOrders = async () => {
       try {
@@ -535,7 +540,7 @@ const Dashboard = () => {
                             Qty: {order.quantity}
                           </span>
                           <span className="order-price">
-                            ${order.total_price}
+                            {formatPrice(order.total_price)}
                           </span>
                           {getStatusBadge(order.status)}
                         </div>
