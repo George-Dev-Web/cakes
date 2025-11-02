@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
-import ContactForm from "../components/ContactForm";
+// import ContactForm from "../components/ContactForm";
 import { fetchCakes } from "../utils/api";
+import Footer from "../components/Footer";
 import "./Home.css";
 
 const Home = () => {
@@ -56,7 +57,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <ContactForm />
+      <Footer />
     </div>
   );
 };

@@ -1,143 +1,280 @@
-/* Order.css - Dark Mode Compatible */
+/* Order.css - Perfect Light Mode with Inky Black Dark Mode */
+
+:root {
+  /* Light Mode Variables (Matching your dashboard) */
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --heading-color: #2d3748;
+  --section-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --input-bg: #ffffff;
+  --input-text: #1a1a1a;
+  --primary-color: #e91e63;
+  --primary-hover: #d81b60;
+  --disabled-bg: #e2e8f0;
+  --error-bg: #fed7d7;
+  --error-text: #c53030;
+  --error-border: #feb2b2;
+  --placeholder-color: #718096;
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
 
 .order-page {
   min-height: 100vh;
   padding: 2rem 0;
-  background-color: var(--bg-color, #ffffff);
-  color: var(--text-color, #333333);
-  transition: background-color 0.3s, color 0.3s;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .order-page .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 }
 
 .order-page h1 {
   text-align: center;
-  margin-bottom: 2rem;
-  color: var(--heading-color, #2c3e50);
+  margin-bottom: 2.5rem;
+  color: var(--heading-color);
   font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
 }
 
 .order-page h3 {
-  color: var(--heading-color, #2c3e50);
-  margin-bottom: 1rem;
-  border-bottom: 2px solid var(--border-color, #e1e8ed);
-  padding-bottom: 0.5rem;
+  color: var(--heading-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border-color);
 }
 
-/* Form Styles */
+/* Form Styles - Matching Dashboard */
 .order-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .form-section {
-  background-color: var(--section-bg, #f8f9fa);
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color, #e1e8ed);
+  background-color: var(--section-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
 }
 
 .form-row {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-color, #333333);
+  color: var(--text-color);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 0.75rem;
-  border: 1px solid var(--border-color, #ced4da);
-  border-radius: 4px;
-  background-color: var(--input-bg, #ffffff);
-  color: var(--text-color, #333333);
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
   font-size: 1rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  font-family: inherit;
+  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--placeholder-color);
+  font-weight: 400;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: #cbd5e0;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--primary-color, #4a90e2);
-  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
+  background-color: var(--input-bg);
 }
 
+/* Select dropdown styling */
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* Textarea specific styling */
 .form-group textarea {
   resize: vertical;
   min-height: 100px;
+  line-height: 1.5;
 }
 
 /* Button Styles */
 .btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.15s ease-in-out;
+  transition: all 0.2s ease-in-out;
   align-self: center;
   margin-top: 1rem;
+  min-width: 200px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
 
 .btn-primary {
-  background-color: var(--primary-color, #4a90e2);
+  background-color: var(--primary-color);
   color: white;
+  box-shadow: var(--shadow);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-hover, #357abd);
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn-primary:disabled {
-  background-color: var(--disabled-bg, #b3c7e0);
+  background-color: var(--disabled-bg);
+  color: #a0aec0;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 /* Error Message */
 .error-message {
-  background-color: var(--error-bg, #f8d7da);
-  color: var(--error-text, #721c24);
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  border: 1px solid var(--error-border, #f5c6cb);
+  background-color: var(--error-bg);
+  color: var(--error-text);
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--error-border);
+  font-weight: 500;
+  font-size: 0.875rem;
 }
 
-/* Dark Mode Support */
+/* Divider line */
+.form-section + .form-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: 2.5rem;
+}
+
+/* ===== INKY BLACK DARK MODE ===== */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #1a1a1a;
-    --text-color: #f0f0f0;
+    /* Inky Black Dark Mode Variables */
+    --bg-color: #000000;
+    --text-color: #ffffff;
     --heading-color: #ffffff;
-    --section-bg: #2d2d2d;
-    --border-color: #444;
-    --input-bg: #3d3d3d;
-    --primary-color: #5da2ff;
-    --primary-hover: #4a90e2;
-    --disabled-bg: #2a4b6a;
-    --error-bg: #4a2327;
-    --error-text: #ffa8b1;
-    --error-border: #5c2c30;
+    --section-bg: #0a0a0a;
+    --border-color: #333333;
+    --input-bg: #1a1a1a;
+    --input-text: #ffffff;
+    --primary-color: #ff4d8d;
+    --primary-hover: #ff3377;
+    --disabled-bg: #333333;
+    --error-bg: #331111;
+    --error-text: #ff6b6b;
+    --error-border: #662222;
+    --placeholder-color: #888888;
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  /* Dark mode specific improvements */
+  .order-page {
+    background-color: #000000;
+  }
+
+  .form-section {
+    background-color: #0a0a0a;
+    border-color: #333333;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background-color: #1a1a1a;
+    border-color: #333333;
+    color: #ffffff;
+  }
+
+  .form-group input:hover,
+  .form-group select:hover,
+  .form-group textarea:hover {
+    border-color: #555555;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 77, 141, 0.3);
+    background-color: #1a1a1a;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #888888;
+  }
+
+  /* Update select arrow for dark mode */
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  }
+
+  /* Ensure all text is visible */
+  .order-page h1,
+  .order-page h3,
+  .form-group label {
+    color: #ffffff;
+  }
+
+  /* Button adjustments for dark mode */
+  .btn-primary:disabled {
+    background-color: #333333;
+    color: #666666;
   }
 }
 
@@ -153,6 +290,29 @@
   }
 
   .form-section {
-    padding: 1rem;
+    padding: 1.5rem;
+  }
+
+  .btn {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .order-page {
+    padding: 1rem 0;
+  }
+
+  .order-page .container {
+    padding: 0 1rem;
+  }
+
+  .form-section {
+    padding: 1.25rem;
+  }
+
+  .order-page h1 {
+    font-size: 1.75rem;
   }
 }

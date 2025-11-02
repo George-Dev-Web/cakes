@@ -41,13 +41,14 @@ const Navbar = () => {
           >
             Order
           </Link>
-          <a
-            href="#contact"
+
+          <Link
+            to="/contact"
             className="nav-link"
             onClick={() => setIsMenuOpen(false)}
           >
             Contact
-          </a>
+          </Link>
 
           {/* Theme Toggle */}
           <button className="theme-toggle" onClick={toggleTheme}>
