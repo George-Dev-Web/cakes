@@ -51,7 +51,7 @@ import ContactPage from "./pages/ContactPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard"; // Import AdminDashboard
+import AdminDashboard from "./pages/Admin/AdminDashboard"; // Import AdminDashboard
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute"; // Import AdminProtectedRoute
 import "./App.css";
