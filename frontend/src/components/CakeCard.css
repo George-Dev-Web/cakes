@@ -1,0 +1,178 @@
+.cake-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.cake-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.cake-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.cake-info {
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cake-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.cake-description {
+  font-size: 0.95rem;
+  color: var(--muted-text);
+  line-height: 1.4;
+}
+
+.cake-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem 1.25rem;
+}
+
+.cake-price {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent-color);
+}
+
+.add-to-cart-btn {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background: var(--accent-hover);
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .cake-card {
+    border-radius: 12px;
+  }
+  .cake-info {
+    padding: 0.85rem 1rem;
+  }
+  .cake-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem 1rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+/* Center text when there are no cakes or during loading */
+.cake-grid-empty {
+  text-align: center;
+  color: var(--muted-text);
+  font-size: 1rem;
+  padding: 3rem 1rem;
+}
+
+/* Optional subtle entrance animation */
+.cake-card {
+  animation: fadeIn 0.4s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Search and Filter Bar styling */
+.cake-filters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem auto 1rem;
+  max-width: 800px;
+  padding: 0 1rem;
+}
+
+.cake-filters input,
+.cake-filters select {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.cake-filters input:focus,
+.cake-filters select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(255, 0, 100, 0.1);
+}
+
+.cake-filters button {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cake-filters button:hover {
+  background: var(--accent-hover);
+  transform: scale(1.03);
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 600px) {
+  .cake-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cake-grid {
+    gap: 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+}

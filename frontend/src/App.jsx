@@ -58,6 +58,7 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MessageProvider } from "./contexts/MessageContext";
+import CakePortfolio from "./pages/CakePortfolio";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/cakes" element={<CakePortfolio />} />
 
                 <Route
                   path="/dashboard"

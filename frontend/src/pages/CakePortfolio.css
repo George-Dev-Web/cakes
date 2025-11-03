@@ -1,0 +1,82 @@
+.cake-portfolio {
+  padding: 50px 5%;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cake-portfolio.dark {
+  background-color: var(--dark-bg);
+  color: var(--dark-text-color);
+}
+
+.portfolio-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.portfolio-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.portfolio-header p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.search-input,
+.filter-select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  font-size: 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  outline: none;
+  transition: border 0.3s ease, background 0.3s ease;
+}
+
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--accent-color);
+}
+
+.filter-select {
+  cursor: pointer;
+}
+
+.cake-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.no-results {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .search-input,
+  .filter-select {
+    width: 90%;
+  }
+}

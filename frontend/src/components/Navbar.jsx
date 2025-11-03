@@ -42,6 +42,10 @@ const Navbar = () => {
             Order
           </Link>
 
+          <li>
+            <Link to="/cakes">Cakes</Link>
+          </li>
+
           <Link
             to="/contact"
             className="nav-link"
