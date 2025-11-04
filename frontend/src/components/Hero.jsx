@@ -1,7 +1,13 @@
 // frontend/src/components/Hero.jsx
+import { useNavigate } from "react-router-dom";
 import "./Hero.css";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleViewAllCakes = () => {
+    navigate("/cakes");
+  };
   return (
     <section className="hero">
       <div className="hero-content">
@@ -10,9 +16,9 @@ const Hero = () => {
           Handcrafted with love and the finest ingredients for your special
           moments
         </p>
-        <a href="#products" className="btn">
+        <button className="btn" onClick={handleViewAllCakes}>
           Explore Our Cakes
-        </a>
+        </button>
       </div>
     </section>
   );

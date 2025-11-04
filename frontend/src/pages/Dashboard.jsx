@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [profileData, setProfileData] = useState({});
   const [preferencesData, setPreferencesData] = useState({});
   const { currentUser, updateUser } = useAuth();
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
 
   // Format price as Kenyan Shillings
   const formatPrice = (price) => {

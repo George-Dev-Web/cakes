@@ -1,318 +1,194 @@
-/* Order.css - Perfect Light Mode with Inky Black Dark Mode */
-
 :root {
-  /* Light Mode Variables (Matching your dashboard) */
-  --bg-color: #ffffff;
-  --text-color: #1a1a1a;
-  --heading-color: #2d3748;
-  --section-bg: #ffffff;
-  --border-color: #e2e8f0;
-  --input-bg: #ffffff;
-  --input-text: #1a1a1a;
-  --primary-color: #e91e63;
-  --primary-hover: #d81b60;
-  --disabled-bg: #e2e8f0;
-  --error-bg: #fed7d7;
-  --error-text: #c53030;
-  --error-border: #feb2b2;
-  --placeholder-color: #718096;
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --primary-color: #d46a92; /* velvet rose pink */
+  --accent-color: #ffb7c5; /* soft pastel pink */
+  --background-light: #fff8f9;
+  --text-light: #2b2b2b;
+  --border-color: #e6cfd6;
+
+  --background-dark: #1a1a1a;
+  --surface-dark: #2a2a2a;
+  --text-dark: #f1f1f1;
+  --border-dark: #3b3b3b;
+  --primary-dark: #e68ba6;
 }
 
+/* Light / Dark mode switch */
+body.light .order-page {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+body.dark .order-page {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+/* Page Container */
 .order-page {
-  min-height: 100vh;
-  padding: 2rem 0;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 3rem 1rem;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .order-page .container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  background-color: inherit;
 }
 
+/* Headings */
 .order-page h1 {
   text-align: center;
-  margin-bottom: 2.5rem;
-  color: var(--heading-color);
-  font-size: 2.5rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  color: var(--primary-color);
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  letter-spacing: 0.5px;
 }
 
-.order-page h3 {
-  color: var(--heading-color);
-  margin-bottom: 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--border-color);
+body.dark .order-page h1 {
+  color: var(--primary-dark);
 }
 
-/* Form Styles - Matching Dashboard */
 .order-form {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
-
-.form-section {
-  background-color: var(--section-bg);
+  background-color: white;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
+body.dark .order-form {
+  background-color: var(--surface-dark);
+  border: 1px solid var(--border-dark);
+}
+
+/* Section Headers */
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h3 {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+body.dark .form-section h3 {
+  color: var(--primary-dark);
+}
+
+/* Form Layout */
 .form-row {
   display: flex;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .form-group {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
-.form-group label {
+label {
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--border-color);
+input,
+select,
+textarea {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  background-color: var(--input-bg);
-  color: var(--input-text);
   font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.2s ease-in-out;
-  font-weight: 500;
+  background-color: #fff;
+  color: var(--text-light);
+  transition: border-color 0.2s, background-color 0.3s, color 0.3s;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: var(--placeholder-color);
-  font-weight: 400;
-}
-
-.form-group input:hover,
-.form-group select:hover,
-.form-group textarea:hover {
-  border-color: #cbd5e0;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
+input:focus,
+select:focus,
+textarea:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.1);
-  background-color: var(--input-bg);
+  outline: none;
 }
 
-/* Select dropdown styling */
-.form-group select {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  background-size: 1.5em 1.5em;
-  padding-right: 2.5rem;
+body.dark input,
+body.dark select,
+body.dark textarea {
+  background-color: var(--surface-dark);
+  color: var(--text-dark);
+  border-color: var(--border-dark);
 }
 
-/* Textarea specific styling */
-.form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-  line-height: 1.5;
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus {
+  border-color: var(--primary-dark);
 }
 
-/* Button Styles */
+/* Error message */
+.error-message {
+  background-color: #ffe6ea;
+  border: 1px solid var(--accent-color);
+  color: #a1123d;
+  padding: 0.8rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+body.dark .error-message {
+  background-color: #3a1f26;
+  border-color: #b84c6a;
+  color: #ffb7c5;
+}
+
+/* Buttons */
 .btn {
-  padding: 0.875rem 2rem;
+  display: inline-block;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+  padding: 0.8rem 1.4rem;
   font-size: 1rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  align-self: center;
-  margin-top: 1rem;
-  min-width: 200px;
-  text-transform: uppercase;
-  letter-spacing: 0.025em;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn-primary {
   background-color: var(--primary-color);
-  color: white;
-  box-shadow: var(--shadow);
+  color: #fff;
 }
 
-.btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.btn-primary:active:not(:disabled) {
-  transform: translateY(0);
+.btn-primary:hover {
+  background-color: #b64e76;
+  transform: translateY(-2px);
 }
 
 .btn-primary:disabled {
-  background-color: var(--disabled-bg);
-  color: #a0aec0;
+  background-color: #ccc;
   cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
 }
 
-/* Error Message */
-.error-message {
-  background-color: var(--error-bg);
-  color: var(--error-text);
-  padding: 1rem 1.25rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  border: 1px solid var(--error-border);
-  font-weight: 500;
-  font-size: 0.875rem;
+body.dark .btn-primary {
+  background-color: var(--primary-dark);
 }
 
-/* Divider line */
-.form-section + .form-section {
-  border-top: 1px solid var(--border-color);
-  padding-top: 2.5rem;
+body.dark .btn-primary:hover {
+  background-color: #c97591;
 }
 
-/* ===== INKY BLACK DARK MODE ===== */
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Inky Black Dark Mode Variables */
-    --bg-color: #000000;
-    --text-color: #ffffff;
-    --heading-color: #ffffff;
-    --section-bg: #0a0a0a;
-    --border-color: #333333;
-    --input-bg: #1a1a1a;
-    --input-text: #ffffff;
-    --primary-color: #ff4d8d;
-    --primary-hover: #ff3377;
-    --disabled-bg: #333333;
-    --error-bg: #331111;
-    --error-text: #ff6b6b;
-    --error-border: #662222;
-    --placeholder-color: #888888;
-    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  }
-
-  /* Dark mode specific improvements */
-  .order-page {
-    background-color: #000000;
-  }
-
-  .form-section {
-    background-color: #0a0a0a;
-    border-color: #333333;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
-      0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    background-color: #1a1a1a;
-    border-color: #333333;
-    color: #ffffff;
-  }
-
-  .form-group input:hover,
-  .form-group select:hover,
-  .form-group textarea:hover {
-    border-color: #555555;
-  }
-
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(255, 77, 141, 0.3);
-    background-color: #1a1a1a;
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: #888888;
-  }
-
-  /* Update select arrow for dark mode */
-  .form-group select {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23888888' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
-  }
-
-  /* Ensure all text is visible */
-  .order-page h1,
-  .order-page h3,
-  .form-group label {
-    color: #ffffff;
-  }
-
-  /* Button adjustments for dark mode */
-  .btn-primary:disabled {
-    background-color: #333333;
-    color: #666666;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .order-page h1 {
-    font-size: 2rem;
-  }
-
-  .form-section {
+/* Responsive */
+@media (max-width: 600px) {
+  .order-form {
     padding: 1.5rem;
   }
 
-  .btn {
-    width: 100%;
-    min-width: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .order-page {
-    padding: 1rem 0;
-  }
-
-  .order-page .container {
-    padding: 0 1rem;
-  }
-
-  .form-section {
-    padding: 1.25rem;
-  }
-
-  .order-page h1 {
-    font-size: 1.75rem;
+  .form-row {
+    flex-direction: column;
   }
 }
