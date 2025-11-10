@@ -3,6 +3,9 @@ from flask import Flask
 from flask_cors import CORS
 from config import Config
 from extensions import db, migrate, ma, jwt
+from models.customization import CustomizationOption, OrderCustomization
+# from models.cake import Cake
+# from models.order import Order
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -21,12 +24,15 @@ def create_app(config_class=Config):
     from controllers.auth_controller import auth_bp
     from controllers.contact_controller import contact_bp
     from controllers.admin_controller import admin_bp
+    from controllers.customization_controller import customization_bp
+
     
     app.register_blueprint(cake_bp, url_prefix='/api')
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(order_bp, url_prefix='/api')
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(contact_bp, url_prefix='/api')
+    app.register_blueprint(customization_bp)
     
     return app
 

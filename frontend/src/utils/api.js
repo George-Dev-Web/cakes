@@ -206,4 +206,15 @@ export const fetchAdminUsers = async (params = {}) => {
   }
 };
 
+// Customizations API call
+export const fetchCustomizations = async () => {
+  try {
+    const response = await api.get("/customizations"); // make sure your backend has this endpoint
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching customizations:", error.response?.data);
+    throw error;
+  }
+};
+
 export default api;
