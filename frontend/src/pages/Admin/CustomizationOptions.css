@@ -1,0 +1,299 @@
+/* CustomizationOptions.css - plain CSS, modern + clean */
+
+/* Simple CSS variables that should inherit from your global theme if present */
+:root {
+  --bg: #ffffff;
+  --muted: #6b6b6b;
+  --text: #121212;
+  --card: #fafafa;
+  --border: #ececec;
+  --primary: #d46a92; /* adjust to match your theme */
+  --accent: #ffb7c5;
+  --danger: #e74c3c;
+  --shadow: 0 8px 24px rgba(15,15,15,0.06);
+  --radius: 10px;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1113;
+  --muted: #bdbdbd;
+  --text: #f7f7f7;
+  --card: #16171a;
+  --border: #2b2b2b;
+  --primary: #e68ba6;
+  --accent: #ffb7c5;
+  --danger: #ff7b7b;
+  --shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+.admin-customizations-page {
+  padding: 30px 20px;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.admin-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.admin-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--text);
+}
+
+.admin-header .sub {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 60%;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  border: 1px solid var(--border);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  color: #fff;
+  border: none;
+}
+
+.btn.small {
+  padding: 6px 8px;
+  font-size: 0.9rem;
+}
+
+.btn.danger {
+  background: var(--danger);
+  color: white;
+  border: none;
+}
+
+/* Error block */
+.admin-error {
+  margin: 10px 0 20px;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(231, 76, 60, 0.08);
+  color: var(--danger);
+}
+
+/* list area */
+.customizations-list {
+  display: block;
+}
+
+/* category block */
+.category-block {
+  margin-bottom: 28px;
+}
+
+.category-title {
+  margin: 0 0 12px 6px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+/* grid of option cards */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+/* card */
+.option-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.option-card-top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.option-image {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: linear-gradient(180deg, #f0f0f0, #e8e8e8);
+  border: 1px solid var(--border);
+}
+
+.option-image.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.option-meta {
+  flex: 1;
+}
+
+.option-name {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.option-price {
+  margin-top: 6px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* description */
+.option-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  min-height: 36px;
+}
+
+/* actions row */
+.option-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+/* modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+}
+
+.modal {
+  width: 720px;
+  max-width: 95%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.modal h3 {
+  margin: 0 0 10px 0;
+}
+
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.modal-form input,
+.modal-form textarea,
+.modal-form select {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+}
+
+.modal-form textarea {
+  grid-column: 1 / -1;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.req {
+  color: var(--danger);
+  margin-left: 6px;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  background: rgba(231, 76, 60, 0.07);
+  color: var(--danger);
+  padding: 8px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 8px;
+  grid-column: 1 / -1;
+}
+
+/* placeholders */
+.placeholder {
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* responsive */
+@media (max-width: 880px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header .sub {
+    display: none;
+  }
+}

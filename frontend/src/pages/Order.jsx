@@ -258,39 +258,41 @@ import { useAuth } from "../contexts/AuthContext";
 import { submitOrder, fetchCakes, fetchCustomizations } from "../utils/api";
 import "./Order.css";
 
-const Order = () => {
+const OrderPage = () => {
+  // Renamed from Order to OrderPage
   const { currentUser } = useAuth();
 
-  const [orderData, setOrderData] = useState({
+  const initialOrderData = {
     cake_id: "",
     quantity: 1,
     delivery_date: "",
     special_requests: "",
-    customer_name: "",
-    customer_email: "",
-    customer_phone: "",
-    delivery_address: "",
-  });
+    customer_name: currentUser?.name || "",
+    customer_email: currentUser?.email || "",
+    customer_phone: currentUser?.phone || "",
+    delivery_address: currentUser?.address || "",
+  };
 
+  const [orderData, setOrderData] = useState(initialOrderData);
   const [cakes, setCakes] = useState([]);
   const [customizations, setCustomizations] = useState([]);
   const [selectedCustomizations, setSelectedCustomizations] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const formatPrice = (price) => `KSh ${price.toLocaleString("en-KE")}`;
+  const formatPrice = (price) =>
+    `KSh ${parseFloat(price).toLocaleString("en-KE")}`;
 
+  // --- DATA FETCHING & STANDARDIZATION ---
   useEffect(() => {
-    // Pre-fill form with user data
-    if (currentUser) {
-      setOrderData((prev) => ({
-        ...prev,
-        customer_name: currentUser.name || "",
-        customer_email: currentUser.email || "",
-        customer_phone: currentUser.phone || "",
-        delivery_address: currentUser.address || "",
-      }));
-    }
+    // Re-initialize orderData on user change (e.g., login/logout)
+    setOrderData((prev) => ({
+      ...prev,
+      customer_name: currentUser?.name || "",
+      customer_email: currentUser?.email || "",
+      customer_phone: currentUser?.phone || "",
+      delivery_address: currentUser?.address || "",
+    }));
 
     const fetchData = async () => {
       try {
@@ -298,8 +300,17 @@ const Order = () => {
           fetchCakes(),
           fetchCustomizations(),
         ]);
+
+        // **PERMANENT FIX: Data Standardization**
+        const safeCustomData = Array.isArray(customData) ? customData : [];
+        const standardizedCustomData = safeCustomData.map((group) => ({
+          ...group,
+          // Guaranteed to be an array, preventing the 'map is not a function' error
+          options: Array.isArray(group.options) ? group.options : [],
+        }));
+
         setCakes(cakesData);
-        setCustomizations(customData);
+        setCustomizations(standardizedCustomData);
       } catch (err) {
         setError("Failed to load data. Please try again later.");
         console.error("Error fetching data:", err);
@@ -310,28 +321,43 @@ const Order = () => {
   }, [currentUser]);
 
   const handleChange = (e) => {
-    setOrderData({ ...orderData, [e.target.name]: e.target.value });
+    // Handle quantity and price inputs as numbers immediately
+    const { name, value, type } = e.target;
+    const val = type === "number" ? Number(value) : value;
+
+    setOrderData({ ...orderData, [name]: val });
   };
 
   const handleCustomizationSelect = (category, option) => {
     setSelectedCustomizations((prev) => ({
       ...prev,
+      // Toggle selection: if already selected, set to null; otherwise, set option
       [category]: prev[category]?.id === option.id ? null : option,
     }));
   };
 
   const calculateTotal = () => {
     let total = 0;
+    const quantity = orderData.quantity || 1;
+
     const baseCake = cakes.find(
       (cake) => cake.id === Number(orderData.cake_id)
     );
-    if (baseCake) total += baseCake.price * orderData.quantity;
+    // Use optional chaining for safety
+    if (baseCake) total += baseCake.price * quantity;
 
     Object.values(selectedCustomizations).forEach((opt) => {
-      if (opt) total += opt.price * orderData.quantity;
+      // Ensure the option is selected and has a price
+      if (opt && typeof opt.price === "number") total += opt.price * quantity;
     });
 
     return total;
+  };
+
+  // Use a stable reset function
+  const resetForm = () => {
+    setOrderData(initialOrderData); // Use the stable initial data object
+    setSelectedCustomizations({});
   };
 
   const handleSubmit = async (e) => {
@@ -340,21 +366,26 @@ const Order = () => {
     setLoading(true);
 
     try {
+      if (!orderData.cake_id || !orderData.delivery_date) {
+        setError("Please select a cake and delivery date.");
+        setLoading(false);
+        return;
+      }
+      // Add a quick validation check for required user info
       if (
-        !orderData.cake_id ||
-        !orderData.delivery_date ||
         !orderData.customer_name ||
         !orderData.customer_email ||
         !orderData.customer_phone ||
         !orderData.delivery_address
       ) {
-        setError("Please fill in all required fields");
+        setError("Please fill in all required contact and delivery fields.");
         setLoading(false);
         return;
       }
 
       const payload = {
         ...orderData,
+        // Map customization objects to just their IDs
         customizations: Object.values(selectedCustomizations)
           .filter(Boolean)
           .map((c) => c.id),
@@ -366,18 +397,7 @@ const Order = () => {
         "Thank you for your order! We will confirm the details via email shortly."
       );
 
-      // Reset form but keep user details
-      setOrderData({
-        cake_id: "",
-        quantity: 1,
-        delivery_date: "",
-        special_requests: "",
-        customer_name: currentUser ? currentUser.name : "",
-        customer_email: currentUser ? currentUser.email : "",
-        customer_phone: currentUser ? currentUser.phone : "",
-        delivery_address: currentUser ? currentUser.address : "",
-      });
-      setSelectedCustomizations({});
+      resetForm(); // Use the dedicated reset function
     } catch (err) {
       const errorMessage =
         err.response?.data?.message ||
@@ -406,7 +426,7 @@ const Order = () => {
         <form className="order-form" onSubmit={handleSubmit}>
           {/* Cake Selection */}
           <div className="form-section">
-            <h3>Cake Selection</h3>
+            <h3>🎂 Cake Selection</h3>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="cake_id">Select Cake *</label>
@@ -418,6 +438,7 @@ const Order = () => {
                   required
                 >
                   <option value="">Choose a cake</option>
+                  {/* Ensure 'cakes' is mapped safely */}
                   {cakes.map((cake) => (
                     <option key={cake.id} value={cake.id}>
                       {cake.name} - {formatPrice(cake.price)}
@@ -470,23 +491,26 @@ const Order = () => {
 
           {/* Customizations */}
           <div className="form-section">
-            <h3>Customize Your Cake (Optional)</h3>
+            <h3>🎨 Customize Your Cake (Optional)</h3>
             {customizations.length > 0 ? (
               customizations.map((category) => (
-                <div key={category.name} className="customization-category">
-                  <h4>{category.displayName}</h4>
+                <div key={category.category} className="customization-category">
+                  {/* Using category.category as key/display name for simplicity */}
+                  <h4>{category.category}</h4>
                   <div className="customization-options">
+                    {/* CRITICAL FIX APPLIED: No need for ?.map because data is standardized in useEffect */}
                     {category.options.map((option) => (
                       <div
                         key={option.id}
                         className={`customization-option ${
-                          selectedCustomizations[category.name]?.id ===
+                          selectedCustomizations[category.category]?.id === // Used category.category for selection
                           option.id
                             ? "selected"
                             : ""
                         }`}
-                        onClick={() =>
-                          handleCustomizationSelect(category.name, option)
+                        onClick={
+                          () =>
+                            handleCustomizationSelect(category.category, option) // Used category.category
                         }
                       >
                         {option.image_url && (
@@ -517,7 +541,7 @@ const Order = () => {
 
           {/* User Info */}
           <div className="form-section">
-            <h3>Your Information</h3>
+            <h3>👤 Your Information</h3>
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="customer_name">Your Name *</label>
@@ -580,4 +604,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default OrderPage;

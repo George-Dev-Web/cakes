@@ -1,0 +1,61 @@
+.customizations-tab {
+  margin-top: 20px;
+  color: #333;
+}
+
+.customization-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.customization-form input[type="text"],
+.customization-form input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.customization-form button {
+  padding: 8px 16px;
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.customization-form button:hover {
+  background-color: #e55a6e;
+}
+
+.customizations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.customization-item {
+  display: flex;
+  justify-content: space-between;
+  background: #fafafa;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+}
+
+.customization-item .actions button {
+  margin-left: 8px;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.customization-item .actions button:hover {
+  background: #f5f5f5;
+}

@@ -17,15 +17,21 @@ customization_options_schema = CustomizationOptionSchema(many=True)
 
 
 # Get all active customizations
+# @customization_bp.route("/customizations", methods=["GET"])
+# def get_customizations():
+#     customizations = CustomizationOption.query.filter_by(active=True).all()
+#     grouped = {}
+#     for c in customizations:
+#         if c.category not in grouped:
+#             grouped[c.category] = []
+#         grouped[c.category].append(customization_option_schema.dump(c))
+#     return jsonify(grouped), 200
 @customization_bp.route("/customizations", methods=["GET"])
 def get_customizations():
     customizations = CustomizationOption.query.filter_by(active=True).all()
-    grouped = {}
-    for c in customizations:
-        if c.category not in grouped:
-            grouped[c.category] = []
-        grouped[c.category].append(customization_option_schema.dump(c))
-    return jsonify(grouped), 200
+    result = customization_options_schema.dump(customizations)  # flat array
+    return jsonify(result), 200
+
 
 
 # Admin: Add a new customization

@@ -12,6 +12,7 @@ import OverviewTab from "./OverviewTab";
 import OrdersTab from "./OrdersTab";
 import CakesTab from "./CakesTab";
 import UsersTab from "./UsersTab";
+import CustomizationsTab from "./CustomizationsTab";
 
 import "./AdminDashboard.css";
 
@@ -121,6 +122,13 @@ const AdminDashboard = () => {
           >
             Users
           </button>
+
+          <button
+            className={activeTab === "customizations" ? "active" : ""}
+            onClick={() => setActiveTab("customizations")}
+          >
+            Customizations
+          </button>
         </div>
 
         <div className="admin-content">
@@ -138,6 +146,8 @@ const AdminDashboard = () => {
           )}
 
           {activeTab === "users" && <UsersTab users={users} />}
+
+          {activeTab === "customizations" && <CustomizationsTab />}
         </div>
       </div>
     </div>
