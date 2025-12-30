@@ -1,4 +1,5 @@
 # backend/app.py
+# backend/app.py
 from flask import Flask
 from flask_cors import CORS
 from config import Config
@@ -7,9 +8,8 @@ from extensions import db, migrate, ma, jwt
 # Import ALL models so Flask-Migrate can detect them
 from models.cake import Cake
 from models.order import Order
-from models.User import User
-from models.customization import CustomizationOption
-from models.order_customization import OrderCustomization
+from models.User import User 
+# ----------------------------------------------------------------
 
 def create_app(config_class=Config):
     """Application factory pattern for creating Flask app instances."""
@@ -21,12 +21,9 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     ma.init_app(app)
     jwt.init_app(app)
-    
-    # Configure CORS with proper settings
-    CORS(
-        app,
-        resources={r"/api/*": {"origins": app.config.get('CORS_ORIGINS', 'http://localhost:5173')}},
-        supports_credentials=True  # Required for cookie-based JWT
+    CORS(app, 
+         resources={r"/api/*": {"origins": "http://localhost:5173"}}, # Limit access to your frontend
+         supports_credentials=True # CRITICAL: Allows the Access-Control-Allow-Credentials header to be true
     )
     
     # Register all blueprints
@@ -46,8 +43,11 @@ def create_app(config_class=Config):
     
     return app
 
-# Create app instance for Flask CLI and WSGI servers
+# --- FIX 2: Define 'app' globally for Flask CLI/Migrate ---
+# Flask-Migrate needs the initialized app instance (with 'db' extension registered) 
+# to be defined globally (outside of if __name__ == '__main__':) when the file is imported.
 app = create_app()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
